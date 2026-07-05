@@ -653,30 +653,24 @@ section { padding: var(--gy) var(--gx); position:relative; overflow:hidden }
    GALLERY
 ══════════════════════════════════════════════════ */
 #gallery { background: var(--black) }
+/* Photo strips — full-bleed rows woven between sections so the
+   photos are spread through the page instead of one gallery block. */
+.photo-strip {
+  display: flex;
+  gap: clamp(6px,0.9vw,14px);
+  width: 100%;
+}
 .gal-grid {
   display: flex;
-  align-items: flex-start;
   gap: clamp(8px,1.2vw,18px);
   margin-top: 64px;
 }
-.gal-col {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: clamp(8px,1.2vw,18px);
-  min-width: 0;
-}
-/* editorial cascade — all photos are 2:3, so we stagger the columns
-   downward instead of cropping. Full photos, no crop. */
-.gal-col:nth-child(2){ margin-top: clamp(28px,5vw,80px); }
-.gal-col:nth-child(3){ margin-top: clamp(56px,10vw,160px); }
-@media(max-width:900px){
-  .gal-col:nth-child(2){ margin-top: clamp(16px,3vw,40px); }
-  .gal-col:nth-child(3){ margin-top: clamp(32px,6vw,80px); }
-}
-@media(max-width:520px){
-  .gal-grid{ flex-direction: column; }
-  .gal-col{ margin-top: 0 !important; }
+.photo-strip > .gal-item,
+.gal-grid  > .gal-item { flex: 1; min-width: 0; }
+@media(max-width:720px){
+  .photo-strip, .gal-grid { flex-wrap: wrap; }
+  .photo-strip > .gal-item,
+  .gal-grid  > .gal-item { flex: 1 1 48%; }
 }
 .gal-item {
   position: relative;
@@ -836,6 +830,13 @@ footer {
   </div>
 </section>
 
+<!-- photo strip -->
+<div class="photo-strip">
+  <div class="gal-item"><img src="img/photo-01.jpg" alt="Training" loading="lazy"></div>
+  <div class="gal-item"><img src="img/photo-02.jpg" alt="Training" loading="lazy"></div>
+  <div class="gal-item"><img src="img/photo-03.jpg" alt="Training" loading="lazy"></div>
+</div>
+
 <!-- ════════════════════════════════════════
      PHILOSOPHY
 ════════════════════════════════════════ -->
@@ -901,6 +902,12 @@ footer {
   </div>
 </section>
 
+<!-- photo strip -->
+<div class="photo-strip">
+  <div class="gal-item"><img src="img/photo-04.jpg" alt="Training" loading="lazy"></div>
+  <div class="gal-item"><img src="img/photo-05.jpg" alt="Training" loading="lazy"></div>
+</div>
+
 <!-- ════════════════════════════════════════
      METHOD
 ════════════════════════════════════════ -->
@@ -939,26 +946,10 @@ footer {
     <h2 class="s-hl" id="galHl" style="clip-path:polygon(0 100%,100% 100%,100% 100%,0 100%)">
       Iron. Sweat.<br>Intention.
     </h2>
-    <!-- Cascade gallery: 3 columns, interleaved so it reads left-to-right.
-         To add a photo, drop a new .gal-item into the SHORTEST column. -->
     <div class="gal-grid">
-      <div class="gal-col">
-        <div class="gal-item"><img src="img/photo-01.jpg" alt="Training" loading="lazy"></div>
-        <div class="gal-item"><img src="img/photo-04.jpg" alt="Training" loading="lazy"></div>
-        <div class="gal-item"><img src="img/photo-07.jpg" alt="Training" loading="lazy"></div>
-        <div class="gal-item"><img src="img/photo-10.jpg" alt="Training" loading="lazy"></div>
-      </div>
-      <div class="gal-col">
-        <div class="gal-item"><img src="img/photo-02.jpg" alt="Training" loading="lazy"></div>
-        <div class="gal-item"><img src="img/photo-05.jpg" alt="Training" loading="lazy"></div>
-        <div class="gal-item"><img src="img/photo-08.jpg" alt="Training" loading="lazy"></div>
-        <div class="gal-item"><img src="img/photo-11.jpg" alt="Training" loading="lazy"></div>
-      </div>
-      <div class="gal-col">
-        <div class="gal-item"><img src="img/photo-03.jpg" alt="Training" loading="lazy"></div>
-        <div class="gal-item"><img src="img/photo-06.jpg" alt="Training" loading="lazy"></div>
-        <div class="gal-item"><img src="img/photo-09.jpg" alt="Training" loading="lazy"></div>
-      </div>
+      <div class="gal-item"><img src="img/photo-06.jpg" alt="Training" loading="lazy"></div>
+      <div class="gal-item"><img src="img/photo-07.jpg" alt="Training" loading="lazy"></div>
+      <div class="gal-item"><img src="img/photo-08.jpg" alt="Training" loading="lazy"></div>
     </div>
   </div>
 </section>
@@ -978,6 +969,13 @@ footer {
     </div>
   </div>
 </section>
+
+<!-- photo strip -->
+<div class="photo-strip">
+  <div class="gal-item"><img src="img/photo-09.jpg" alt="Training" loading="lazy"></div>
+  <div class="gal-item"><img src="img/photo-10.jpg" alt="Training" loading="lazy"></div>
+  <div class="gal-item"><img src="img/photo-11.jpg" alt="Training" loading="lazy"></div>
+</div>
 
 <!-- ════════════════════════════════════════
      WORK
