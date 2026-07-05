@@ -1,0 +1,6 @@
+.vercel
+
+# Raw high-res originals from Dropbox — kept local only, NOT deployed.
+# The optimized web versions live in /img and ARE committed.
+assets/
+assets.zip

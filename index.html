@@ -636,6 +636,56 @@ section { padding: var(--gy) var(--gx); position:relative; overflow:hidden }
   border-left: 2px solid var(--dim);
 }
 
+/* hero background photo */
+.hero-photo {
+  position:absolute; inset:0; z-index:0;
+  background-size:cover;
+  background-position:center 25%;
+  opacity:.22;
+  filter:grayscale(.3) contrast(1.05);
+}
+.hero-photo::after {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(6,6,8,.55) 0%, rgba(6,6,8,.35) 45%, rgba(6,6,8,.92) 100%);
+}
+
+/* ══════════════════════════════════════════════════
+   GALLERY
+══════════════════════════════════════════════════ */
+#gallery { background: var(--black) }
+.gal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(8px,1.2vw,18px);
+  margin-top: 64px;
+}
+@media(max-width:900px){ .gal-grid{ grid-template-columns:repeat(2,1fr) } }
+@media(max-width:520px){ .gal-grid{ grid-template-columns:1fr } }
+.gal-item {
+  position: relative;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  background: var(--s1);
+  opacity: 0;
+  transform: translateY(24px);
+}
+.gal-item img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(.4) contrast(1.03);
+  transition: transform .7s cubic-bezier(.2,.7,.2,1), filter .5s;
+}
+.gal-item:hover img { transform: scale(1.06); filter: grayscale(0) contrast(1.05); }
+.gal-item::after {
+  content:'';
+  position:absolute; inset:0;
+  border:1px solid transparent;
+  transition: border-color .3s;
+  pointer-events:none;
+}
+.gal-item:hover::after { border-color: rgba(200,255,62,.4); }
+
 /* ══════════════════════════════════════════════════
    FOOTER
 ══════════════════════════════════════════════════ */
@@ -729,6 +779,7 @@ footer {
      HERO
 ════════════════════════════════════════ -->
 <section id="hero">
+  <div class="hero-photo" id="heroPhoto" aria-hidden="true" style="background-image:url('img/photo-01.jpg')"></div>
   <div class="hero-ghost" aria-hidden="true">TRAIN WITH HUNGRY</div>
 
   <div class="hero-inner">
@@ -858,6 +909,31 @@ footer {
         <h3 class="m-title">Embody</h3>
         <p class="m-body">The work becomes who you are — how you move, eat, lead, show up when nobody is watching. Embodiment is the only real outcome that matters.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     GALLERY
+════════════════════════════════════════ -->
+<section id="gallery">
+  <div class="wrap">
+    <div class="s-eye">The Work</div>
+    <h2 class="s-hl" id="galHl" style="clip-path:polygon(0 100%,100% 100%,100% 100%,0 100%)">
+      Iron. Sweat.<br>Intention.
+    </h2>
+    <div class="gal-grid">
+      <div class="gal-item"><img src="img/photo-01.jpg" alt="Training" loading="lazy"></div>
+      <div class="gal-item"><img src="img/photo-02.jpg" alt="Training" loading="lazy"></div>
+      <div class="gal-item"><img src="img/photo-03.jpg" alt="Training" loading="lazy"></div>
+      <div class="gal-item"><img src="img/photo-04.jpg" alt="Training" loading="lazy"></div>
+      <div class="gal-item"><img src="img/photo-05.jpg" alt="Training" loading="lazy"></div>
+      <div class="gal-item"><img src="img/photo-06.jpg" alt="Training" loading="lazy"></div>
+      <div class="gal-item"><img src="img/photo-07.jpg" alt="Training" loading="lazy"></div>
+      <div class="gal-item"><img src="img/photo-08.jpg" alt="Training" loading="lazy"></div>
+      <div class="gal-item"><img src="img/photo-09.jpg" alt="Training" loading="lazy"></div>
+      <div class="gal-item"><img src="img/photo-10.jpg" alt="Training" loading="lazy"></div>
+      <div class="gal-item"><img src="img/photo-11.jpg" alt="Training" loading="lazy"></div>
     </div>
   </div>
 </section>
@@ -1052,7 +1128,7 @@ function initSite() {
   });
 
   // section headline clip reveals
-  ['#discHl','#methodHl'].forEach(sel => {
+  ['#discHl','#methodHl','#galHl'].forEach(sel => {
     const el = document.querySelector(sel);
     if (!el) return;
     gsap.to(el, {
@@ -1088,6 +1164,14 @@ function initSite() {
       clipPath:'polygon(0 0,100% 0,100% 100%,0 100%)',
       duration:.75, delay:i*.07, ease:'power4.out',
       scrollTrigger:{ trigger:'.w-list', start:'top 82%' }
+    });
+  });
+
+  // gallery items
+  gsap.utils.toArray('.gal-item').forEach((el, i) => {
+    gsap.to(el, {
+      opacity:1, y:0, duration:.7, delay:(i%3)*.1, ease:'power3.out',
+      scrollTrigger:{ trigger:el, start:'top 90%' }
     });
   });
 
